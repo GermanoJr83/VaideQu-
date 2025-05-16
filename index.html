@@ -3,287 +3,307 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vai de quê? - Comparador (Esboço)</title>
+    <title>Vai de quê? - Beta (Rastreador de Economia)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0f4f8; /* Um cinza azulado claro para o fundo */
+            background-color: #f3f4f6; /* Cinza um pouco mais claro */
         }
         .app-container {
-            max-width: 500px;
-            margin: 20px auto;
+            max-width: 480px; /* Um pouco mais estreito para sensação de app */
+            margin: 30px auto;
             background-color: #ffffff;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
         }
         .input-group {
-            margin-bottom: 15px;
+            margin-bottom: 18px;
         }
         .input-group label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
             font-weight: 500;
-            color: #374151; /* Cinza escuro */
+            color: #374151;
+            font-size: 0.9rem;
         }
-        .input-group input {
+        .input-group input[type="text"],
+        .input-group input[type="number"] {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #D1D5DB; /* Cinza claro */
+            padding: 12px;
+            border: 1px solid #D1D5DB;
             border-radius: 8px;
             box-sizing: border-box;
-            transition: border-color 0.3s;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            font-size: 1rem;
         }
-        .input-group input:focus {
-            border-color: #3B82F6; /* Azul */
+        .input-group input[type="text"]:focus,
+        .input-group input[type="number"]:focus {
+            border-color: #2563EB;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4);
             outline: none;
         }
         .btn {
-            display: block;
+            display: inline-flex; /* Para alinhar ícone e texto */
+            align-items: center;
+            justify-content: center;
             width: 100%;
-            padding: 12px;
+            padding: 12px 20px;
             border: none;
             border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.1s;
-            text-align: center; /* Para alinhar ícone e texto */
+            font-size: 1rem;
+        }
+        .btn i {
+            margin-right: 8px;
         }
         .btn-primary {
-            background-color: #2563EB; /* Azul mais forte */
+            background-color: #2563EB;
             color: white;
         }
         .btn-primary:hover {
-            background-color: #1D4ED8; /* Azul mais escuro */
+            background-color: #1D4ED8;
             transform: translateY(-1px);
         }
         .btn-secondary {
-            background-color: #6B7280; /* Cinza */
+            background-color: #10B981; /* Verde para adicionar ao cofrinho */
             color: white;
-            margin-top: 10px; /* Espaçamento para o botão do Google Maps */
         }
         .btn-secondary:hover {
-            background-color: #4B5563; /* Cinza mais escuro */
+            background-color: #059669;
             transform: translateY(-1px);
         }
-        .results-card {
-            background-color: #F9FAFB; /* Cinza muito claro */
+        .info-card {
+            background-color: #F9FAFB;
             padding: 15px;
             border-radius: 8px;
             margin-top: 20px;
-            border: 1px solid #E5E7EB; /* Cinza claro */
+            border: 1px solid #E5E7EB;
         }
-        .results-card h3 {
+        .info-card h3 {
             font-size: 1.1rem;
             font-weight: 600;
-            color: #1F2937; /* Cinza mais escuro */
+            color: #1F2937;
             margin-bottom: 10px;
         }
-        .price-option {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid #E5E7EB;
-        }
-        .price-option:last-child {
-            border-bottom: none;
-        }
-        .price-option .name {
-            font-weight: 500;
-            color: #4B5563; /* Cinza médio */
-        }
-        .price-option .price {
-            font-weight: 600;
-            color: #10B981; /* Verde para preço */
-        }
-         .price-option .time {
-            font-size: 0.85rem;
-            color: #6B7280; /* Cinza */
-        }
-        .savings-card {
-            background-color: #ECFDF5; /* Verde muito claro */
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 15px;
-            border: 1px solid #A7F3D0; /* Verde claro */
-            text-align: center;
-        }
-        .savings-card .amount {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #059669; /* Verde escuro */
-        }
-        .piggy-bank-card {
-            background-color: #FFFBEB; /* Amarelo muito claro */
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 15px;
-            border: 1px solid #FEF3C7; /* Amarelo claro */
-            text-align: center;
-        }
-        .piggy-bank-card .balance {
+        .info-card .amount {
             font-size: 1.75rem;
             font-weight: 700;
-            color: #D97706; /* Laranja/Amarelo escuro */
         }
-        .hidden {
-            display: none;
+        .savings-display .amount { color: #059669; } /* Verde para economia */
+        .piggy-bank-display .amount { color: #D97706; } /* Laranja/Amarelo para cofrinho */
+
+        .history-item {
+            font-size: 0.9rem;
+            color: #4B5563;
+            padding: 6px 0;
+            border-bottom: 1px dashed #E5E7EB;
         }
+        .history-item:last-child {
+            border-bottom: none;
+        }
+        .hidden { display: none; }
         .logo {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 700;
             text-align: center;
-            margin-bottom: 20px;
-            color: #1E40AF; /* Azul escuro */
+            margin-bottom: 25px;
+            color: #1E40AF;
         }
-        .logo i {
-            margin-right: 8px;
-            color: #3B82F6; /* Azul */
-        }
+        .logo i { margin-right: 10px; color: #3B82F6; }
+        .form-section { margin-bottom: 25px; }
+        .optional-text { font-size: 0.8rem; color: #6B7280; margin-left: 5px; }
     </style>
 </head>
 <body>
     <div class="app-container">
         <div class="logo">
-            <i class="fa-solid fa-route"></i>Vai de quê?
+            <i class="fa-solid fa-piggy-bank"></i>Vai de quê? <span class="text-sm font-normal text-gray-500">(Beta)</span>
         </div>
 
-        <div class="input-group">
-            <label for="origem">De onde você sai?</label>
-            <input type="text" id="origem" name="origem" placeholder="Ex: Avenida Paulista, 1578, São Paulo">
-        </div>
-
-        <div class="input-group">
-            <label for="destino">Para onde você vai?</label>
-            <input type="text" id="destino" name="destino" placeholder="Ex: Aeroporto de Congonhas, São Paulo">
-        </div>
-
-        <button id="compareBtn" class="btn btn-primary">
-            <i class="fa-solid fa-magnifying-glass"></i> Comparar Agora
-        </button>
-
-        <div id="resultsSection" class="results-card hidden">
-            <h3><i class="fa-solid fa-car-side"></i> Opções Encontradas:</h3>
-            <div id="uberOption" class="price-option">
-                <div>
-                    <span class="name">Uber X</span><br>
-                    <span class="time" id="uberTime">Estimativa: -- min</span>
-                </div>
-                <span class="price" id="uberPrice">R$ --,--</span>
+        <div class="form-section">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Registrar Nova Economia</h2>
+            <div class="input-group">
+                <label for="valorPago">Valor que paguei (R$):</label>
+                <input type="number" id="valorPago" name="valorPago" placeholder="Ex: 18.50" step="0.01">
             </div>
-            <div id="ninetynineOption" class="price-option">
-                 <div>
-                    <span class="name">99 Pop</span><br>
-                    <span class="time" id="ninetynineTime">Estimativa: -- min</span>
-                </div>
-                <span class="price" id="ninetyninePrice">R$ --,--</span>
-            </div>
-            <a id="googleMapsLink" href="#" target="_blank" class="btn btn-secondary hidden">
-                <i class="fa-solid fa-map-location-dot"></i> Ver Rota no Google Maps
-            </a>
-        </div>
 
-        <div id="savingsSection" class="savings-card hidden">
-            <h3><i class="fa-solid fa-sack-dollar"></i> Sua Economia Nesta Viagem:</h3>
-            <p class="amount" id="savingsAmount">R$ 0,00</p>
-            <button id="addToPiggyBankBtn" class="mt-3 bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg text-sm transition-colors">
-                <i class="fa-solid fa-piggy-bank"></i> Adicionar ao Cofrinho
+            <div class="input-group">
+                <label for="valorOpcaoCara">Valor da opção mais cara (R$):</label>
+                <input type="number" id="valorOpcaoCara" name="valorOpcaoCara" placeholder="Ex: 25.00" step="0.01">
+            </div>
+
+            <div class="input-group">
+                <label for="origem">Origem <span class="optional-text">(Opcional)</span></label>
+                <input type="text" id="origem" name="origem" placeholder="Ex: Casa">
+            </div>
+
+            <div class="input-group">
+                <label for="destino">Destino <span class="optional-text">(Opcional)</span></label>
+                <input type="text" id="destino" name="destino" placeholder="Ex: Trabalho">
+            </div>
+
+            <button id="calculateSavingsBtn" class="btn btn-primary">
+                <i class="fa-solid fa-calculator"></i> Calcular Economia
             </button>
         </div>
 
-        <div id="piggyBankSection" class="piggy-bank-card mt-6">
-            <h3><i class="fa-solid fa-piggy-bank"></i> Meu Cofrinho Inteligente</h3>
-            <p class="balance" id="piggyBankBalance">R$ 0,00</p>
-            <p class="text-xs text-gray-500 mt-1">Total economizado com "Vai de quê?"</p>
+        <div id="savingsResultSection" class="info-card savings-display hidden">
+            <h3><i class="fa-solid fa-sack-dollar"></i> Economia nesta viagem:</h3>
+            <p class="amount" id="savingsAmount">R$ 0,00</p>
+            <button id="addToPiggyBankBtn" class="btn btn-secondary mt-3 w-auto px-4 py-2 text-sm">
+                <i class="fa-solid fa-plus-circle"></i> Adicionar ao Cofrinho
+            </button>
+        </div>
+
+        <div id="piggyBankSection" class="info-card piggy-bank-display mt-5">
+            <h3><i class="fa-solid fa-landmark"></i> Meu Cofrinho Inteligente</h3>
+            <p class="amount" id="piggyBankBalance">R$ 0,00</p>
+            <div class="mt-3">
+                <h4 class="text-sm font-medium text-gray-600 mb-1">Histórico de Economias:</h4>
+                <div id="savingsHistory" class="text-left max-h-32 overflow-y-auto">
+                    <p class="text-xs text-gray-400 italic">Nenhuma economia registrada ainda.</p>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
         // Elementos do DOM
-        const origemInput = document.getElementById('origem');
-        const destinoInput = document.getElementById('destino');
-        const compareBtn = document.getElementById('compareBtn');
-        const resultsSection = document.getElementById('resultsSection');
-        const uberPriceEl = document.getElementById('uberPrice');
-        const uberTimeEl = document.getElementById('uberTime');
-        const ninetyninePriceEl = document.getElementById('ninetyninePrice');
-        const ninetynineTimeEl = document.getElementById('ninetynineTime');
-        const googleMapsLink = document.getElementById('googleMapsLink');
-        const savingsSection = document.getElementById('savingsSection');
+        const valorPagoInput = document.getElementById('valorPago');
+        const valorOpcaoCaraInput = document.getElementById('valorOpcaoCara');
+        const origemInput = document.getElementById('origem'); // Opcional
+        const destinoInput = document.getElementById('destino'); // Opcional
+        const calculateSavingsBtn = document.getElementById('calculateSavingsBtn');
+        
+        const savingsResultSection = document.getElementById('savingsResultSection');
         const savingsAmountEl = document.getElementById('savingsAmount');
         const addToPiggyBankBtn = document.getElementById('addToPiggyBankBtn');
+        
         const piggyBankBalanceEl = document.getElementById('piggyBankBalance');
+        const savingsHistoryEl = document.getElementById('savingsHistory');
 
-        let currentSavings = 0;
+        let currentCalculatedSavings = 0;
         let piggyBankTotal = 0;
+        let savingsLog = []; // Para o histórico
 
         // Função para formatar moeda
         function formatCurrency(value) {
             return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
         }
 
-        // Evento de clique no botão Comparar
-        compareBtn.addEventListener('click', () => {
-            const origem = origemInput.value.trim();
-            const destino = destinoInput.value.trim();
+        // Carregar dados do localStorage ao iniciar
+        function loadData() {
+            const savedTotal = localStorage.getItem('vaiDeQuePiggyBankTotal');
+            const savedLog = localStorage.getItem('vaiDeQueSavingsLog');
+            if (savedTotal) {
+                piggyBankTotal = parseFloat(savedTotal);
+                piggyBankBalanceEl.textContent = formatCurrency(piggyBankTotal);
+            }
+            if (savedLog) {
+                savingsLog = JSON.parse(savedLog);
+                renderHistory();
+            }
+        }
 
-            if (!origem || !destino) {
-                alert('Por favor, preencha os campos de origem e destino.');
+        // Salvar dados no localStorage
+        function saveData() {
+            localStorage.setItem('vaiDeQuePiggyBankTotal', piggyBankTotal.toString());
+            localStorage.setItem('vaiDeQueSavingsLog', JSON.stringify(savingsLog));
+        }
+
+        // Renderizar histórico
+        function renderHistory() {
+            if (savingsLog.length === 0) {
+                savingsHistoryEl.innerHTML = '<p class="text-xs text-gray-400 italic">Nenhuma economia registrada ainda.</p>';
+                return;
+            }
+            savingsHistoryEl.innerHTML = ''; // Limpa o histórico anterior
+            savingsLog.slice().reverse().slice(0, 5).forEach(item => { // Mostra os últimos 5, mais recentes primeiro
+                const p = document.createElement('p');
+                p.classList.add('history-item');
+                p.textContent = `${item.date}: ${formatCurrency(item.amount)} (Pago: ${formatCurrency(item.paid)}, Outra Opção: ${formatCurrency(item.other)})`;
+                savingsHistoryEl.appendChild(p);
+            });
+        }
+
+        // Evento de clique no botão Calcular Economia
+        calculateSavingsBtn.addEventListener('click', () => {
+            const valorPago = parseFloat(valorPagoInput.value);
+            const valorOpcaoCara = parseFloat(valorOpcaoCaraInput.value);
+
+            if (isNaN(valorPago) || isNaN(valorOpcaoCara)) {
+                alert('Por favor, insira valores numéricos válidos para os preços.');
                 return;
             }
 
-            // --- SIMULAÇÃO DE DADOS DA API ---
-            const basePrice = 10 + Math.random() * 20;
-            const uberPriceMultiplier = 0.9 + Math.random() * 0.4;
-            const uberPrice = basePrice * uberPriceMultiplier;
-            const uberTime = 5 + Math.floor(Math.random() * 15);
-            const ninetyninePriceMultiplier = 0.85 + Math.random() * 0.5;
-            const ninetyninePrice = basePrice * ninetyninePriceMultiplier;
-            const ninetynineTime = 7 + Math.floor(Math.random() * 18);
-            // --- FIM DA SIMULAÇÃO ---
+            if (valorPago < 0 || valorOpcaoCara < 0) {
+                alert('Os valores dos preços não podem ser negativos.');
+                return;
+            }
+            
+            if (valorPago > valorOpcaoCara) {
+                 alert('O "Valor que paguei" não pode ser maior que o "Valor da opção mais cara" para haver economia.');
+                savingsResultSection.classList.add('hidden');
+                currentCalculatedSavings = 0;
+                return;
+            }
 
-            uberPriceEl.textContent = formatCurrency(uberPrice);
-            uberTimeEl.textContent = `Estimativa: ${uberTime} min`;
-            ninetyninePriceEl.textContent = formatCurrency(ninetyninePrice);
-            ninetynineTimeEl.textContent = `Estimativa: ${ninetynineTime} min`;
-            resultsSection.classList.remove('hidden');
+            currentCalculatedSavings = valorOpcaoCara - valorPago;
 
-            // Construir e exibir link do Google Maps CORRIGIDO
-            const mapsUrl = `https://maps.google.com/?saddr=${encodeURIComponent(origem)}&daddr=${encodeURIComponent(destino)}&travelmode=driving`;
-            googleMapsLink.href = mapsUrl;
-            googleMapsLink.classList.remove('hidden');
-
-
-            const cheaperOption = Math.min(uberPrice, ninetyninePrice);
-            const moreExpensiveOption = Math.max(uberPrice, ninetyninePrice);
-            currentSavings = moreExpensiveOption - cheaperOption;
-
-            if (currentSavings > 0.005) { // Considerar uma pequena margem para evitar R$0,00 por arredondamento
-                savingsAmountEl.textContent = formatCurrency(currentSavings);
-                savingsSection.classList.remove('hidden');
+            if (currentCalculatedSavings >= 0) { // Permite economia de R$0.00 para registro
+                savingsAmountEl.textContent = formatCurrency(currentCalculatedSavings);
+                savingsResultSection.classList.remove('hidden');
             } else {
-                savingsAmountEl.textContent = formatCurrency(0);
-                savingsSection.classList.add('hidden');
+                savingsResultSection.classList.add('hidden');
             }
         });
 
         // Evento para adicionar ao cofrinho
         addToPiggyBankBtn.addEventListener('click', () => {
-            if (currentSavings > 0.005) {
-                piggyBankTotal += currentSavings;
+            if (currentCalculatedSavings >= 0) {
+                piggyBankTotal += currentCalculatedSavings;
                 piggyBankBalanceEl.textContent = formatCurrency(piggyBankTotal);
-                alert('Economia adicionada ao Cofrinho Inteligente!');
+                
+                // Adicionar ao log do histórico
+                const now = new Date();
+                const logEntry = {
+                    date: now.toLocaleDateString('pt-BR'),
+                    time: now.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'}),
+                    amount: currentCalculatedSavings,
+                    paid: parseFloat(valorPagoInput.value), // Salva o que foi pago
+                    other: parseFloat(valorOpcaoCaraInput.value), // Salva o valor da outra opção
+                    origem: origemInput.value, // Salva origem (opcional)
+                    destino: destinoInput.value // Salva destino (opcional)
+                };
+                savingsLog.push(logEntry);
+                
+                saveData(); // Salva no localStorage
+                renderHistory(); // Atualiza a exibição do histórico
+
+                alert(`Parabéns! ${formatCurrency(currentCalculatedSavings)} adicionados ao Cofrinho Inteligente!`);
+                
+                // Limpar campos e resultado da economia atual para nova entrada
+                valorPagoInput.value = '';
+                valorOpcaoCaraInput.value = '';
+                origemInput.value = ''; // Limpa campos opcionais também
+                destinoInput.value = '';
+                savingsResultSection.classList.add('hidden');
+                currentCalculatedSavings = 0;
+                valorPagoInput.focus();
+
             } else {
-                alert('Não há economia para adicionar nesta viagem.');
+                alert('Não há economia calculada para adicionar.');
             }
         });
 
-        // Inicializar o cofrinho
-        piggyBankBalanceEl.textContent = formatCurrency(piggyBankTotal);
+        // Inicializar ao carregar a página
+        loadData();
 
     </script>
 </body>
