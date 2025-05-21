@@ -45,11 +45,11 @@
         html {
             scroll-behavior: smooth;
         }
-        p, dd, li a, .text-sm { /* Aumentado .text-sm para consistência, mas pode ser ajustado */
+        p, dd, li a, .text-sm { 
             font-size: 1.15rem; 
             line-height: 1.8;
         }
-        nav a.text-sm { /* Links da navegação podem ser um pouco menores */
+        nav a.text-sm { 
              font-size: 1rem;
         }
         .hero-bg p.text-lg { 
@@ -156,8 +156,7 @@
                         </div>
                         <div class="flex flex-col items-center text-center p-6 rounded-lg hover:shadow-xl transition-shadow duration-300">
                             <dt class="flex items-center justify-center rounded-lg feature-icon-green h-12 w-12">
-                                <i class="fa-solid fa-chart-line-down fa-lg"></i>
-                            </dt>
+                                <i class="fa-solid fa-chart-line fa-lg"></i> </dt>
                             <dd class="mt-4 flex flex-auto flex-col text-lg leading-7 text-gray-700">
                                 <h3 class="text-2xl font-semibold text-gray-900">Falta de Rastreamento</h3>
                                 <p class="mt-2 flex-auto">Mesmo quando você economiza, é difícil visualizar o impacto dessas pequenas economias ao longo do tempo.</p>
@@ -363,13 +362,10 @@
         fnames[1]='FNAME';ftypes[1]='text'; 
         */
     }(jQuery));
-    var $mcj = jQuery.noConflict(true); // Para evitar conflitos se você usar outra versão do jQuery ou $
+    var $mcj = jQuery.noConflict(true); 
     
-    // Script para ano atual no rodapé
     document.getElementById('currentYear').textContent = new Date().getFullYear();
     </script>
 
 </body>
 </html>
-  
-  
