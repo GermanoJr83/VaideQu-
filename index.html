@@ -1,336 +1,375 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vai de quê? - Beta (Rastreador de Economia)</title>
+    <title>Vai de quê? - Economize e Invista em Cada Viagem!</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link href="//cdn-images.mailchimp.com/embedcode/classic-061523.css" rel="stylesheet" type="text/css">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6; /* Cinza um pouco mais claro */
+            color: #27374D; 
+            font-size: 1.1rem; 
+            line-height: 1.75; 
         }
-        .app-container {
-            max-width: 480px; /* Um pouco mais estreito para sensação de app */
-            margin: 30px auto;
-            background-color: #ffffff;
-            padding: 25px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        .hero-bg {
+            background: linear-gradient(135deg, #2E7D32 0%, #1565C0 100%); 
         }
-        .input-group {
-            margin-bottom: 18px;
+        .feature-icon {
+            background-color: rgba(21, 101, 192, 0.1); 
+            color: #1565C0; 
         }
-        .input-group label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: 500;
-            color: #374151;
-            font-size: 0.9rem;
+        .feature-icon-green { 
+            background-color: rgba(46, 125, 50, 0.1); 
+            color: #2E7D32; 
         }
-        .input-group input[type="text"],
-        .input-group input[type="number"] {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #D1D5DB;
-            border-radius: 8px;
-            box-sizing: border-box;
-            transition: border-color 0.3s, box-shadow 0.3s;
-            font-size: 1rem;
+        .cta-bg {
+            background-color: #E8F5E9; 
         }
-        .input-group input[type="text"]:focus,
-        .input-group input[type="number"]:focus {
-            border-color: #2563EB;
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4);
-            outline: none;
+        .section-title {
+            @apply text-5xl font-bold tracking-tight text-gray-900 sm:text-6xl;
         }
-        .btn {
-            display: inline-flex; /* Para alinhar ícone e texto */
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.1s;
-            font-size: 1rem;
+        .section-subtitle {
+            @apply mt-6 text-2xl leading-9 text-gray-700;
         }
-        .btn i {
-            margin-right: 8px;
+        .btn-primary-lp {
+            /* Estilo do botão principal da landing page (e do formulário) */
+            @apply inline-block rounded-lg bg-green-600 px-8 py-4 text-lg font-semibold leading-7 text-white shadow-lg hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700 transition-all duration-300 ease-in-out ring-2 ring-green-700 hover:ring-green-800;
         }
-        .btn-primary {
-            background-color: #2563EB;
-            color: white;
+         .btn-secondary-lp {
+            @apply inline-block rounded-lg px-8 py-4 text-lg font-semibold leading-7 text-gray-700 ring-1 ring-gray-300 hover:ring-gray-400 hover:bg-gray-50 transition-all duration-300 ease-in-out;
         }
-        .btn-primary:hover {
-            background-color: #1D4ED8;
-            transform: translateY(-1px);
+        html {
+            scroll-behavior: smooth;
         }
-        .btn-secondary {
-            background-color: #10B981; /* Verde para adicionar ao cofrinho */
-            color: white;
+        p, dd, li a, .text-sm { /* Aumentado .text-sm para consistência, mas pode ser ajustado */
+            font-size: 1.15rem; 
+            line-height: 1.8;
         }
-        .btn-secondary:hover {
-            background-color: #059669;
-            transform: translateY(-1px);
+        nav a.text-sm { /* Links da navegação podem ser um pouco menores */
+             font-size: 1rem;
         }
-        .info-card {
-            background-color: #F9FAFB;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-            border: 1px solid #E5E7EB;
+        .hero-bg p.text-lg { 
+            font-size: 1.5rem; 
+            line-height: 1.85;
         }
-        .info-card h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #1F2937;
-            margin-bottom: 10px;
+        .hero-bg h1 { 
+            font-size: 4rem; 
         }
-        .info-card .amount {
-            font-size: 1.75rem;
-            font-weight: 700;
+        @media (min-width: 640px) { 
+            .hero-bg h1 {
+                font-size: 5rem; 
+            }
         }
-        .savings-display .amount { color: #059669; } /* Verde para economia */
-        .piggy-bank-display .amount { color: #D97706; } /* Laranja/Amarelo para cofrinho */
-
-        .history-item {
-            font-size: 0.9rem;
-            color: #4B5563;
-            padding: 6px 0;
-            border-bottom: 1px dashed #E5E7EB;
+        .mockup-image-container img {
+            width: 100%; 
+            max-width: 420px; 
+            margin-left: auto;
+            margin-right: auto;
         }
-        .history-item:last-child {
-            border-bottom: none;
+         @media (min-width: 1024px) { 
+            .mockup-image-container img {
+                 max-width: 480px; 
+            }
         }
-        .hidden { display: none; }
-        .logo {
-            font-size: 2rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 25px;
-            color: #1E40AF;
-        }
-        .logo i { margin-right: 10px; color: #3B82F6; }
-        .form-section { margin-bottom: 25px; }
-        .optional-text { font-size: 0.8rem; color: #6B7280; margin-left: 5px; }
     </style>
 </head>
-<body>
-    <div class="app-container">
-        <div class="logo">
-            <i class="fa-solid fa-piggy-bank"></i>Vai de quê? <span class="text-sm font-normal text-gray-500">(Beta)</span>
-        </div>
+<body class="bg-white">
 
-        <div class="form-section">
-            <h2 class="text-xl font-semibold text-gray-700 mb-4">Registrar Nova Economia</h2>
-            <div class="input-group">
-                <label for="valorPago">Valor que paguei (R$):</label>
-                <input type="number" id="valorPago" name="valorPago" placeholder="Ex: 18.50" step="0.01">
+    <header class="absolute inset-x-0 top-0 z-50">
+        <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+            <div class="flex lg:flex-1">
+                <a href="#" class="-m-1.5 p-1.5 text-white flex items-center">
+                    <i class="fa-solid fa-route fa-2x mr-3"></i>
+                    <span class="text-2xl font-bold">Vai de quê?</span>
+                </a>
             </div>
-
-            <div class="input-group">
-                <label for="valorOpcaoCara">Valor da opção mais cara (R$):</label>
-                <input type="number" id="valorOpcaoCara" name="valorOpcaoCara" placeholder="Ex: 25.00" step="0.01">
+            <div class="lg:flex lg:gap-x-12">
+                <a href="#problema" class="text-sm font-semibold leading-6 text-gray-100 hover:text-white">O Problema</a>
+                <a href="#solucao" class="text-sm font-semibold leading-6 text-gray-100 hover:text-white">A Solução</a>
+                <a href="#funcionalidades" class="text-sm font-semibold leading-6 text-gray-100 hover:text-white">Funcionalidades</a>
+                <a href="#futuro" class="text-sm font-semibold leading-6 text-gray-100 hover:text-white">Visão de Futuro</a>
             </div>
-
-            <div class="input-group">
-                <label for="origem">Origem <span class="optional-text">(Opcional)</span></label>
-                <input type="text" id="origem" name="origem" placeholder="Ex: Casa">
+            <div class="lg:flex lg:flex-1 lg:justify-end">
+                <a href="#contato" class="inline-block rounded-lg bg-green-500 px-6 py-2.5 text-base font-semibold leading-7 text-white shadow-md hover:bg-green-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 transition-all duration-300 ease-in-out ring-1 ring-green-600">Inscreva-se</a>
             </div>
+        </nav>
+    </header>
 
-            <div class="input-group">
-                <label for="destino">Destino <span class="optional-text">(Opcional)</span></label>
-                <input type="text" id="destino" name="destino" placeholder="Ex: Trabalho">
-            </div>
-
-            <button id="calculateSavingsBtn" class="btn btn-primary">
-                <i class="fa-solid fa-calculator"></i> Calcular Economia
-            </button>
-        </div>
-
-        <div id="savingsResultSection" class="info-card savings-display hidden">
-            <h3><i class="fa-solid fa-sack-dollar"></i> Economia nesta viagem:</h3>
-            <p class="amount" id="savingsAmount">R$ 0,00</p>
-            <button id="addToPiggyBankBtn" class="btn btn-secondary mt-3 w-auto px-4 py-2 text-sm">
-                <i class="fa-solid fa-plus-circle"></i> Adicionar ao Cofrinho
-            </button>
-        </div>
-
-        <div id="piggyBankSection" class="info-card piggy-bank-display mt-5">
-            <h3><i class="fa-solid fa-landmark"></i> Meu Cofrinho Inteligente</h3>
-            <p class="amount" id="piggyBankBalance">R$ 0,00</p>
-            <div class="mt-3">
-                <h4 class="text-sm font-medium text-gray-600 mb-1">Histórico de Economias:</h4>
-                <div id="savingsHistory" class="text-left max-h-32 overflow-y-auto">
-                    <p class="text-xs text-gray-400 italic">Nenhuma economia registrada ainda.</p>
+    <main>
+        <div class="relative isolate hero-bg">
+            <div class="mx-auto max-w-3xl py-32 sm:py-48 lg:py-56 px-6 lg:px-8 text-center">
+                <div class="hidden sm:mb-8 sm:flex sm:justify-center">
+                    <div class="relative rounded-full px-3 py-1 text-base leading-6 text-green-100 ring-1 ring-white/30 hover:ring-white/50">
+                        Economize de verdade em cada corrida. <a href="#funcionalidades" class="font-semibold text-white"><span class="absolute inset-0" aria-hidden="true"></span>Saiba mais <span aria-hidden="true">&rarr;</span></a>
+                    </div>
+                </div>
+                <div>
+                    <h1 class="tracking-tight text-white">
+                        Vai de quê?
+                    </h1>
+                    <p class="mt-6 text-blue-50 text-lg">
+                        Compare, economize e veja seu dinheiro render. A forma mais inteligente de usar apps de transporte e ainda poupar para seus objetivos.
+                    </p>
+                    <div class="mt-10 flex items-center justify-center gap-x-6">
+                        <a href="#contato" class="btn-primary-lp">Quero ser notificado!</a>
+                        <a href="#solucao" class="text-xl font-semibold leading-6 text-white">Entenda como <span aria-hidden="true">→</span></a>
+                    </div>
                 </div>
             </div>
+            <div class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]" aria-hidden="true">
+                <div class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#66BB6A] to-[#1E88E5] opacity-25 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
+            </div>
         </div>
-    </div>
 
-    <script>
-        // Elementos do DOM
-        const valorPagoInput = document.getElementById('valorPago');
-        const valorOpcaoCaraInput = document.getElementById('valorOpcaoCara');
-        const origemInput = document.getElementById('origem'); // Opcional
-        const destinoInput = document.getElementById('destino'); // Opcional
-        const calculateSavingsBtn = document.getElementById('calculateSavingsBtn');
+        <section id="problema" class="py-24 sm:py-32">
+            <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                <div class="mx-auto max-w-2xl lg:text-center">
+                    <h2 class="text-lg font-semibold leading-7 text-green-600">O Desafio Diário</h2>
+                    <p class="section-title">Preços que Mudam, Economia que Escapa.</p>
+                    <p class="section-subtitle">
+                        Você já se sentiu perdido com a variação de preços dos aplicativos de transporte? Gostaria de saber exatamente quanto poderia economizar escolhendo a melhor opção, mas acaba perdendo essa oportunidade por falta de uma ferramenta simples?
+                    </p>
+                </div>
+                <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
+                    <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
+                        <div class="flex flex-col items-center text-center p-6 rounded-lg hover:shadow-xl transition-shadow duration-300">
+                            <dt class="flex items-center justify-center rounded-lg feature-icon-green h-12 w-12">
+                                <i class="fa-solid fa-tags fa-lg"></i>
+                            </dt>
+                            <dd class="mt-4 flex flex-auto flex-col text-lg leading-7 text-gray-700">
+                                <h3 class="text-2xl font-semibold text-gray-900">Preços Flutuantes</h3>
+                                <p class="mt-2 flex-auto">Tarifas dinâmicas e promoções diferentes em cada app tornam difícil saber qual a melhor escolha no momento.</p>
+                            </dd>
+                        </div>
+                        <div class="flex flex-col items-center text-center p-6 rounded-lg hover:shadow-xl transition-shadow duration-300">
+                            <dt class="flex items-center justify-center rounded-lg feature-icon h-12 w-12">
+                                <i class="fa-solid fa-magnifying-glass-dollar fa-lg"></i>
+                            </dt>
+                            <dd class="mt-4 flex flex-auto flex-col text-lg leading-7 text-gray-700">
+                                <h3 class="text-2xl font-semibold text-gray-900">Economia Perdida</h3>
+                                <p class="mt-2 flex-auto">Sem uma comparação clara, você pode estar gastando mais do que o necessário em suas viagens diárias.</p>
+                            </dd>
+                        </div>
+                        <div class="flex flex-col items-center text-center p-6 rounded-lg hover:shadow-xl transition-shadow duration-300">
+                            <dt class="flex items-center justify-center rounded-lg feature-icon-green h-12 w-12">
+                                <i class="fa-solid fa-chart-line-down fa-lg"></i>
+                            </dt>
+                            <dd class="mt-4 flex flex-auto flex-col text-lg leading-7 text-gray-700">
+                                <h3 class="text-2xl font-semibold text-gray-900">Falta de Rastreamento</h3>
+                                <p class="mt-2 flex-auto">Mesmo quando você economiza, é difícil visualizar o impacto dessas pequenas economias ao longo do tempo.</p>
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+        </section>
+
+        <section id="solucao" class="py-24 sm:py-32 bg-green-50">
+            <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2 items-center">
+                    <div class="lg:pr-8 lg:pt-4">
+                        <div class="lg:max-w-lg">
+                            <h2 class="text-lg font-semibold leading-7 text-green-700">Nossa Proposta</h2>
+                            <p class="section-title text-gray-900">Com "Vai de quê?", Cada Real Conta.</p>
+                            <p class="mt-6 text-2xl leading-8 text-gray-700">
+                                O "Vai de quê?" é o seu novo aliado para a mobilidade urbana inteligente. Facilitamos a visualização da sua economia em cada viagem e transformamos essas pequenas diferenças em um cofrinho que cresce com você.
+                            </p>
+                            <dl class="mt-10 max-w-xl space-y-8 text-lg leading-7 text-gray-700 lg:max-w-none">
+                                <div class="relative pl-9">
+                                    <dt class="inline font-semibold text-gray-900">
+                                        <i class="fa-solid fa-calculator absolute left-1 top-1 h-5 w-5 text-green-600"></i>
+                                        Registre sua Economia:
+                                    </dt>
+                                    <dd class="inline">Após comparar os preços nos seus apps de transporte, registre no "Vai de quê?" o valor que você pagou e o valor da opção mais cara. Nós calculamos o quanto você economizou na hora!</dd>
+                                </div>
+                                <div class="relative pl-9">
+                                    <dt class="inline font-semibold text-gray-900">
+                                        <i class="fa-solid fa-piggy-bank absolute left-1 top-1 h-5 w-5 text-green-600"></i>
+                                        Cofrinho Inteligente:
+                                    </dt>
+                                    <dd class="inline">Adicione suas economias a um cofrinho virtual e veja seu dinheiro "poupado" crescer a cada viagem inteligente que você faz.</dd>
+                                </div>
+                                <div class="relative pl-9">
+                                    <dt class="inline font-semibold text-gray-900">
+                                        <i class="fa-solid fa-lightbulb absolute left-1 top-1 h-5 w-5 text-green-600"></i>
+                                        Consciência Financeira:
+                                    </dt>
+                                    <dd class="inline">Crie o hábito de comparar e tomar decisões mais conscientes sobre seus gastos com transporte, transformando economia em um objetivo alcançável.</dd>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="mockup-image-container flex justify-center lg:justify-end">
+                        <img src="mockup-app.jpg" alt="Mockup do Aplicativo Vai de quê?" class="rounded-xl shadow-xl ring-1 ring-gray-400/10 object-contain" style="max-height: 700px;">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="funcionalidades" class="py-24 sm:py-32">
+            <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                <div class="mx-auto max-w-2xl lg:text-center">
+                     <h2 class="text-lg font-semibold leading-7 text-green-600">Como Funciona (MVP)</h2>
+                    <p class="section-title">Simples, Direto e Eficaz.</p>
+                </div>
+                <div class="mx-auto mt-16 grid max-w-lg grid-cols-1 gap-8 md:max-w-none md:grid-cols-3">
+                    <div class="flex flex-col items-start p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center justify-center rounded-md feature-icon-green h-10 w-10 mb-4">
+                            <i class="fa-solid fa-pen-to-square fa-lg"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-gray-900">1. Registre os Preços</h3>
+                        <p class="mt-2 text-gray-700">Após consultar os preços nos seus apps de transporte, informe no "Vai de quê?" o valor que você pagou e o valor da opção mais cara que considerou.</p>
+                    </div>
+                    <div class="flex flex-col items-start p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow">
+                         <div class="flex items-center justify-center rounded-md feature-icon h-10 w-10 mb-4">
+                            <i class="fa-solid fa-sack-dollar fa-lg"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-gray-900">2. Calcule a Economia</h3>
+                        <p class="mt-2 text-gray-700">Nosso app calcula instantaneamente o quanto você economizou nessa escolha inteligente.</p>
+                    </div>
+                    <div class="flex flex-col items-start p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow">
+                         <div class="flex items-center justify-center rounded-md feature-icon-green h-10 w-10 mb-4">
+                            <i class="fa-solid fa-piggy-bank fa-lg"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-gray-900">3. Encha seu Cofrinho</h3>
+                        <p class="mt-2 text-gray-700">Adicione a economia ao seu "Cofrinho Inteligente" virtual e veja seu saldo crescer a cada viagem!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
         
-        const savingsResultSection = document.getElementById('savingsResultSection');
-        const savingsAmountEl = document.getElementById('savingsAmount');
-        const addToPiggyBankBtn = document.getElementById('addToPiggyBankBtn');
-        
-        const piggyBankBalanceEl = document.getElementById('piggyBankBalance');
-        const savingsHistoryEl = document.getElementById('savingsHistory');
+        <section id="futuro" class="py-24 sm:py-32 bg-blue-50">
+            <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                <div class="mx-auto max-w-2xl lg:text-center">
+                    <h2 class="text-lg font-semibold leading-7 text-blue-700">O Próximo Nível</h2>
+                    <p class="section-title text-blue-900">Evoluindo para Facilitar Ainda Mais.</p>
+                    <p class="section-subtitle text-blue-700">
+                        Nosso MVP é só o começo! Estamos trabalhando para trazer funcionalidades que tornarão sua experiência ainda mais poderosa e automatizada.
+                    </p>
+                </div>
+                <div class="mt-16 grid grid-cols-1 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 gap-x-8">
+                    <div class="text-center">
+                        <div class="flex items-center justify-center mx-auto h-16 w-16 rounded-full bg-blue-200 text-blue-700 mb-4">
+                            <i class="fa-solid fa-wand-magic-sparkles fa-2x"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-blue-800">Cotações Automáticas</h3>
+                        <p class="mt-2 text-blue-600">Integração com APIs (como Uber e 99) para buscar estimativas de preço automaticamente, com sua permissão.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="flex items-center justify-center mx-auto h-16 w-16 rounded-full bg-green-200 text-green-700 mb-4">
+                            <i class="fa-solid fa-camera fa-2x"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-green-800">Leitura de Prints com IA</h3>
+                        <p class="mt-2 text-green-600">Tire um print da tela do seu app de transporte e deixe nossa IA preencher os dados da sua economia.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="flex items-center justify-center mx-auto h-16 w-16 rounded-full bg-blue-200 text-blue-700 mb-4">
+                            <i class="fa-solid fa-chart-pie fa-2x"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-blue-800">Cofrinho Real e Investimentos</h3>
+                        <p class="mt-2 text-blue-600">Parcerias para permitir que você transfira suas economias para produtos de investimento reais e veja seu dinheiro render de verdade.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        let currentCalculatedSavings = 0;
-        let piggyBankTotal = 0;
-        let savingsLog = []; // Para o histórico
+        <section id="contato" class="py-24 sm:py-32 cta-bg">
+            <div class="mx-auto max-w-2xl text-center px-6 lg:px-8">
+                <h2 class="section-title">Pronto para Começar a Economizar de Verdade?</h2>
+                <p class="section-subtitle">
+                    O "Vai de quê?" está chegando para transformar suas viagens. Deixe seu email e seja um dos primeiros a ser notificado sobre o lançamento e receber acesso beta!
+                </p>
+                <form action="https://msn.us22.list-manage.com/subscribe/post?u=34b47991d134f4baca5606946&id=1692b7cc54&f_id=00fcc2e1f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate mt-10 mx-auto max-w-md" target="_blank" novalidate>
+                    <div class="flex gap-x-4">
+                        <label for="mce-EMAIL" class="sr-only">Endereço de email</label>
+                        <input id="mce-EMAIL" name="EMAIL" type="email" autocomplete="email" required class="min-w-0 flex-auto rounded-md border-0 bg-white px-3.5 py-2.5 text-xl text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:leading-6 required email" placeholder="Digite seu email">
+                        
+                        <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                            <input type="text" name="b_34b47991d134f4baca5606946_1692b7cc54" tabindex="-1" value="">
+                        </div>
 
-        // Função para formatar moeda
-        function formatCurrency(value) {
-            return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-        }
+                        <button type="submit" name="subscribe" id="mc-embedded-subscribe" class="btn-primary-lp flex-none">Notifique-me!</button>
+                    </div>
+                    <p class="mt-4 text-lg leading-6 text-gray-600">Nós respeitamos sua privacidade. Sem spam.</p>
+                </form>
+                <div id="form-message" class="mt-4 text-lg"></div> 
+            </div>
+        </section>
+    </main>
 
-        // Carregar dados do localStorage ao iniciar
-        function loadData() {
-            const savedTotal = localStorage.getItem('vaiDeQuePiggyBankTotal');
-            const savedLog = localStorage.getItem('vaiDeQueSavingsLog');
-            if (savedTotal) {
-                piggyBankTotal = parseFloat(savedTotal);
-                piggyBankBalanceEl.textContent = formatCurrency(piggyBankTotal);
-            }
-            if (savedLog) {
-                savingsLog = JSON.parse(savedLog);
-                renderHistory();
-            }
-        }
+    <footer class="bg-gray-900" aria-labelledby="footer-heading">
+        <h2 id="footer-heading" class="sr-only">Rodapé</h2>
+        <div class="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
+            <div class="xl:grid xl:grid-cols-3 xl:gap-8">
+                <div class="space-y-8">
+                     <div class="flex items-center text-white">
+                        <i class="fa-solid fa-route fa-2x mr-3 text-green-400"></i>
+                        <span class="text-2xl font-bold">Vai de quê?</span>
+                    </div>
+                    <p class="text-lg leading-6 text-gray-300">Transformando cada viagem numa oportunidade de economia e investimento.</p>
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-gray-400 hover:text-gray-300"><span class="sr-only">Facebook</span><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-gray-300"><span class="sr-only">Instagram</span><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-gray-300"><span class="sr-only">Twitter</span><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
+                    <div class="md:grid md:grid-cols-2 md:gap-8">
+                        <div>
+                            <h3 class="text-lg font-semibold leading-6 text-white">Navegação</h3>
+                            <ul role="list" class="mt-6 space-y-4">
+                                <li><a href="#problema" class="text-lg leading-6 text-gray-300 hover:text-white">O Problema</a></li>
+                                <li><a href="#solucao" class="text-lg leading-6 text-gray-300 hover:text-white">A Solução</a></li>
+                                <li><a href="#funcionalidades" class="text-lg leading-6 text-gray-300 hover:text-white">Funcionalidades</a></li>
+                            </ul>
+                        </div>
+                        <div class="mt-10 md:mt-0">
+                            <h3 class="text-lg font-semibold leading-6 text-white">Recursos</h3>
+                            <ul role="list" class="mt-6 space-y-4">
+                                <li><a href="#futuro" class="text-lg leading-6 text-gray-300 hover:text-white">Visão de Futuro</a></li>
+                                <li><a href="#contato" class="text-lg leading-6 text-gray-300 hover:text-white">Contato (Beta)</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="md:grid md:grid-cols-2 md:gap-8">
+                        <div>
+                            <h3 class="text-lg font-semibold leading-6 text-white">Legal</h3>
+                            <ul role="list" class="mt-6 space-y-4">
+                                <li><a href="#" class="text-lg leading-6 text-gray-300 hover:text-white">Política de Privacidade</a></li>
+                                <li><a href="#" class="text-lg leading-6 text-gray-300 hover:text-white">Termos de Serviço</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-16 border-t border-white/10 pt-8 sm:mt-20 lg:mt-24">
+                <p class="text-base leading-5 text-gray-400">&copy; <span id="currentYear"></span> Vai de quê?. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
 
-        // Salvar dados no localStorage
-        function saveData() {
-            localStorage.setItem('vaiDeQuePiggyBankTotal', piggyBankTotal.toString());
-            localStorage.setItem('vaiDeQueSavingsLog', JSON.stringify(savingsLog));
-        }
-
-        // Renderizar histórico
-        function renderHistory() {
-            if (savingsLog.length === 0) {
-                savingsHistoryEl.innerHTML = '<p class="text-xs text-gray-400 italic">Nenhuma economia registrada ainda.</p>';
-                return;
-            }
-            savingsHistoryEl.innerHTML = ''; // Limpa o histórico anterior
-            savingsLog.slice().reverse().slice(0, 5).forEach(item => { // Mostra os últimos 5, mais recentes primeiro
-                const p = document.createElement('p');
-                p.classList.add('history-item');
-                p.textContent = `${item.date}: ${formatCurrency(item.amount)} (Pago: ${formatCurrency(item.paid)}, Outra Opção: ${formatCurrency(item.other)})`;
-                savingsHistoryEl.appendChild(p);
-            });
-        }
-
-        // Evento de clique no botão Calcular Economia
-        calculateSavingsBtn.addEventListener('click', () => {
-            const valorPago = parseFloat(valorPagoInput.value);
-            const valorOpcaoCara = parseFloat(valorOpcaoCaraInput.value);
-
-            if (isNaN(valorPago) || isNaN(valorOpcaoCara)) {
-                alert('Por favor, insira valores numéricos válidos para os preços.');
-                return;
-            }
-
-            if (valorPago < 0 || valorOpcaoCara < 0) {
-                alert('Os valores dos preços não podem ser negativos.');
-                return;
-            }
-            
-            if (valorPago > valorOpcaoCara) {
-                 alert('O "Valor que paguei" não pode ser maior que o "Valor da opção mais cara" para haver economia.');
-                savingsResultSection.classList.add('hidden');
-                currentCalculatedSavings = 0;
-                return;
-            }
-
-            currentCalculatedSavings = valorOpcaoCara - valorPago;
-
-            if (currentCalculatedSavings >= 0) { // Permite economia de R$0.00 para registro
-                savingsAmountEl.textContent = formatCurrency(currentCalculatedSavings);
-                savingsResultSection.classList.remove('hidden');
-            } else {
-                savingsResultSection.classList.add('hidden');
-            }
-        });
-
-        // Evento para adicionar ao cofrinho
-        addToPiggyBankBtn.addEventListener('click', () => {
-            if (currentCalculatedSavings >= 0) {
-                piggyBankTotal += currentCalculatedSavings;
-                piggyBankBalanceEl.textContent = formatCurrency(piggyBankTotal);
-                
-                // Adicionar ao log do histórico
-                const now = new Date();
-                const logEntry = {
-                    date: now.toLocaleDateString('pt-BR'),
-                    time: now.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'}),
-                    amount: currentCalculatedSavings,
-                    paid: parseFloat(valorPagoInput.value), // Salva o que foi pago
-                    other: parseFloat(valorOpcaoCaraInput.value), // Salva o valor da outra opção
-                    origem: origemInput.value, // Salva origem (opcional)
-                    destino: destinoInput.value // Salva destino (opcional)
-                };
-                savingsLog.push(logEntry);
-                
-                saveData(); // Salva no localStorage
-                renderHistory(); // Atualiza a exibição do histórico
-
-                alert(`Parabéns! ${formatCurrency(currentCalculatedSavings)} adicionados ao Cofrinho Inteligente!`);
-                
-                // Limpar campos e resultado da economia atual para nova entrada
-                valorPagoInput.value = '';
-                valorOpcaoCaraInput.value = '';
-                origemInput.value = ''; // Limpa campos opcionais também
-                destinoInput.value = '';
-                savingsResultSection.classList.add('hidden');
-                currentCalculatedSavings = 0;
-                valorPagoInput.focus();
-
-            } else {
-                alert('Não há economia calculada para adicionar.');
-            }
-        });
-
-        // Inicializar ao carregar a página
-        loadData();
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
+    <script type="text/javascript">
+    (function($) {
+        window.fnames = new Array(); 
+        window.ftypes = new Array();
+        fnames[0]='EMAIL';ftypes[0]='email';
+        /* Adicione outros campos aqui se você os tiver no seu formulário Mailchimp, ex:
+        fnames[1]='FNAME';ftypes[1]='text'; 
+        */
+    }(jQuery));
+    var $mcj = jQuery.noConflict(true); // Para evitar conflitos se você usar outra versão do jQuery ou $
+    
+    // Script para ano atual no rodapé
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
     </script>
+
 </body>
 </html>
-
-  
-
-
-  
- 
- 
-
-  
-  
-
-  
- 
-  
- 
- 
- 
- 
- 
-  
-  
-  
- 
-
   
   
