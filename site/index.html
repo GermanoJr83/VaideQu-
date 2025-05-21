@@ -7,38 +7,35 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link href="//cdn-images.mailchimp.com/embedcode/classic-061523.css" rel="stylesheet" type="text/css">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            color: #27374D; /* Azul acinzentado escuro para texto principal */
-            font-size: 1.1rem; /* Tamanho base da fonte aumentado ainda mais */
-            line-height: 1.75; /* Espaçamento entre linhas aumentado */
+            color: #27374D; 
+            font-size: 1.1rem; 
+            line-height: 1.75; 
         }
         .hero-bg {
-            /* Gradiente de azul para verde/teal */
-            background: linear-gradient(135deg, #2E7D32 0%, #1565C0 100%); /* Verde escuro para Azul médio */
+            background: linear-gradient(135deg, #2E7D32 0%, #1565C0 100%); 
         }
         .feature-icon {
-            background-color: rgba(21, 101, 192, 0.1); /* Azul claro transparente (baseado no novo azul) */
-            color: #1565C0; /* Azul médio */
+            background-color: rgba(21, 101, 192, 0.1); 
+            color: #1565C0; 
         }
-        .feature-icon-green { /* Nova classe para ícones verdes */
-            background-color: rgba(46, 125, 50, 0.1); /* Verde claro transparente */
-            color: #2E7D32; /* Verde escuro */
+        .feature-icon-green { 
+            background-color: rgba(46, 125, 50, 0.1); 
+            color: #2E7D32; 
         }
         .cta-bg {
-            background-color: #E8F5E9; /* Verde muito claro para CTA */
+            background-color: #E8F5E9; 
         }
         .section-title {
-            /* Aumentando o tamanho dos títulos de seção */
             @apply text-5xl font-bold tracking-tight text-gray-900 sm:text-6xl;
         }
         .section-subtitle {
-            /* Aumentando o tamanho dos subtítulos */
             @apply mt-6 text-2xl leading-9 text-gray-700;
         }
         .btn-primary-lp {
-            /* Botão primário com tom verde/teal */
             @apply inline-block rounded-lg bg-green-600 px-10 py-5 text-xl font-semibold leading-7 text-white shadow-sm ring-1 ring-green-600 hover:bg-green-700 hover:ring-green-700 transition-all duration-300 ease-in-out;
         }
          .btn-secondary-lp {
@@ -47,39 +44,39 @@
         html {
             scroll-behavior: smooth;
         }
-        /* Ajustes de tamanho para parágrafos e outros textos */
         p, dd, li a, .text-sm {
-            font-size: 1.15rem; /* Aumentando um pouco mais o texto comum */
+            font-size: 1.15rem; 
             line-height: 1.8;
         }
-        nav a.text-sm { /* Ajuste específico para links da nav se necessário */
+        nav a.text-sm { 
              font-size: 1rem;
         }
-        .hero-bg p.text-lg { /* Parágrafo do Hero */
-            font-size: 1.5rem; /* Aumentado */
+        .hero-bg p.text-lg { 
+            font-size: 1.5rem; 
             line-height: 1.85;
         }
-        .hero-bg h1 { /* Título principal do Hero */
-            font-size: 4rem; /* Aumentado */
+        .hero-bg h1 { 
+            font-size: 4rem; 
         }
-        @media (min-width: 640px) { /* sm breakpoint */
+        @media (min-width: 640px) { 
             .hero-bg h1 {
-                font-size: 5rem; /* Aumentado para telas maiores */
+                font-size: 5rem; 
             }
         }
         .mockup-image-container img {
-            /* Ajustes para a imagem do mockup */
-            width: 100%; /* Faz a imagem tentar ocupar a largura do container */
-            max-width: 420px; /* Aumenta um pouco a largura máxima em telas maiores */
+            width: 100%; 
+            max-width: 420px; 
             margin-left: auto;
             margin-right: auto;
         }
-         @media (min-width: 1024px) { /* lg breakpoint */
+         @media (min-width: 1024px) { 
             .mockup-image-container img {
-                 max-width: 480px; /* Aumenta ainda mais em telas grandes */
+                 max-width: 480px; 
             }
         }
-
+        /* Estilos do Mailchimp (opcional, para manter consistência se necessário) */
+        /* #mc_embed_signup{background:#fff; false;clear:left; font:14px Helvetica,Arial,sans-serif; width: 600px;} */
+        /* Você pode adicionar overrides aqui ou no seu CSS principal se quiser mudar o estilo padrão do Mailchimp */
 
     </style>
 </head>
@@ -289,14 +286,20 @@
                 <p class="section-subtitle">
                     O "Vai de quê?" está chegando para transformar suas viagens. Deixe seu email e seja um dos primeiros a ser notificado sobre o lançamento e receber acesso beta!
                 </p>
-                <form action="#" method="POST" class="mt-10 mx-auto max-w-md">
+                <form action="https://msn.us22.list-manage.com/subscribe/post?u=34b47991d134f4baca5606946&id=1692b7cc54&f_id=00fcc2e1f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate mt-10 mx-auto max-w-md" target="_blank" novalidate>
                     <div class="flex gap-x-4">
-                        <label for="email-address" class="sr-only">Endereço de email</label>
-                        <input id="email-address" name="email" type="email" autocomplete="email" required class="min-w-0 flex-auto rounded-md border-0 bg-white px-3.5 py-2.5 text-xl text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:leading-6" placeholder="Digite seu email">
-                        <button type="submit" class="btn-primary-lp flex-none">Notifique-me!</button>
+                        <label for="mce-EMAIL" class="sr-only">Endereço de email</label>
+                        <input id="mce-EMAIL" name="EMAIL" type="email" autocomplete="email" required class="min-w-0 flex-auto rounded-md border-0 bg-white px-3.5 py-2.5 text-xl text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:leading-6 required email" placeholder="Digite seu email">
+                        
+                        <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                            <input type="text" name="b_34b47991d134f4baca5606946_1692b7cc54" tabindex="-1" value="">
+                        </div>
+
+                        <button type="submit" name="subscribe" id="mc-embedded-subscribe" class="btn-primary-lp flex-none">Notifique-me!</button>
                     </div>
                     <p class="mt-4 text-lg leading-6 text-gray-600">Nós respeitamos sua privacidade. Sem spam.</p>
                 </form>
+                <div id="form-message" class="mt-4 text-lg"></div> 
             </div>
         </section>
     </main>
@@ -352,9 +355,21 @@
         </div>
     </footer>
 
-    <script>
-        // Script para ano atual no rodapé
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
+    <script type="text/javascript">
+    (function($) {
+        window.fnames = new Array(); 
+        window.ftypes = new Array();
+        fnames[0]='EMAIL';ftypes[0]='email';
+        /* Adicione outros campos aqui se você os tiver no seu formulário Mailchimp, ex:
+        fnames[1]='FNAME';ftypes[1]='text'; 
+        */
+    }(jQuery));
+    var $mcj = jQuery.noConflict(true); // Para evitar conflitos se você usar outra versão do jQuery ou $
+    
+    // Script para ano atual no rodapé
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
     </script>
 
 </body>
